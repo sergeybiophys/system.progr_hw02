@@ -25,6 +25,9 @@ namespace Homework_L2
         Thread t1;
         TranslateTransform transform1 = new TranslateTransform();
         RotateTransform rotateTransform1 = new RotateTransform(90);
+        RotateTransform rotateTransform2 = new RotateTransform(180);
+        RotateTransform rotateTransform3 = new RotateTransform(270);
+        RotateTransform rotateTransform4 = new RotateTransform(0);
         Random rnd = new Random();
         public MainWindow()
         {
@@ -33,14 +36,23 @@ namespace Homework_L2
 
         }
 
-        private void Move(Button btn,  TranslateTransform transl, RotateTransform rotateTransform1 )
+        private void Move(Button btn, Image img,  TranslateTransform transl, RotateTransform rotateTransform1 )
         {
             while(true)
             {
                 MoveByXtoRight(btn, transl, rotateTransform1);
+                //Dispatcher.Invoke(() =>
+                //{
+                //    imgCar1.RenderTransform = rotateTransform1;
+
+                //});
+                RotateImage(img, rotateTransform1);
                 MoveByYtoDown(btn, transl, rotateTransform1);
+                RotateImage(img, rotateTransform2);
                 MoveByXtoLeft(btn, transl, rotateTransform1);
+                RotateImage(img, rotateTransform3);
                 MoveByYtoUp(btn, transl, rotateTransform1);
+                RotateImage(img, rotateTransform4);
             }
      
             //RotateButton(btn, transl, rotateTransform1);
@@ -57,6 +69,7 @@ namespace Homework_L2
                 Thread.Sleep(100);
                 UpdatePositionButton(btn, transl, distance);
             }
+            
             //if(distance==640)
             //{
             //RotateButton(btn, transl, rotateTransform1);
@@ -156,26 +169,26 @@ namespace Homework_L2
             //}
         }
 
-        private void RotateButton(Button btn, TranslateTransform transl, RotateTransform transf)
+        private void RotateImage(Image img, RotateTransform transf)
         {
-            UpdateButtonAngle(btn, transl,  transf);
+            UpdateImgAngle(img, transf);
         }
 
-        private void UpdateButtonAngle(Button btn, TranslateTransform transl, RotateTransform transf)
+        private void UpdateImgAngle(Image img,  RotateTransform transf)
         {
 
-            Action action = () => { RotateCW(btn, transl, transf); };
-            btn.Dispatcher.BeginInvoke(action);
+            Action action = () => { RotateCW(img, transf); };
+            img.Dispatcher.BeginInvoke(action);
 
         }
-        private void RotateCW(Button btn, TranslateTransform transl, RotateTransform transf)
+        private void RotateCW(Image img, RotateTransform transf)
         {
             //transl.X = 650;
             //var buttonLocation = btn.PointToScreen().
             //transf.Angle = 90;
             //transf.CenterX = transl.Y;
             //transf.CenterY = transl.X;
-            btn.RenderTransform = transf;
+            img.RenderTransform = transf;
             //btn.RenderTransform = transl;
           
 
@@ -184,7 +197,7 @@ namespace Homework_L2
         void StartClick(object sender, RoutedEventArgs e)
         {
 
-            t1 = new Thread(() => Move(btnRacer1, transform1, rotateTransform1));
+            t1 = new Thread(() => Move(btnRacer1, imgCar1 ,transform1, rotateTransform1));
 
             //t2.IsBackground = true;
 

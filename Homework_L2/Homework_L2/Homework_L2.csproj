@@ -6,4 +6,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\icons8-болид-формулы--сверху-48.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\icons8-болид-формулы--сверху-48.png" />
+  </ItemGroup>
+
 </Project>
