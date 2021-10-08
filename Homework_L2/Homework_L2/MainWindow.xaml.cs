@@ -213,9 +213,14 @@ namespace Homework_L2
 
             while (count >= 0)
             {
+               
                 count -= rnd.Next(1, 5);
                 Thread.Sleep(1000);
                 UpdateProgressBaar(count);
+                //if(count<=20)
+                //{
+        
+                //}
             }
         }
         private void UpdateProgressBaar(int i)
