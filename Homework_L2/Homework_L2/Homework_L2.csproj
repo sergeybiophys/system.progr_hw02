@@ -7,11 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\icons8-болид-формулы--blue-65.png" />
+    <None Remove="Resources\icons8-болид-формулы--green-65.png" />
+    <None Remove="Resources\icons8-болид-формулы--yellow-65.png" />
     <None Remove="Resources\icons8-болид-формулы--сверху-48.png" />
+    <None Remove="Resources\icons8-болид-формулы--сверху-55.png" />
+    <None Remove="Resources\icons8-болид-формулы--сверху-65.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\icons8-болид-формулы--blue-65.png" />
+    <Resource Include="Resources\icons8-болид-формулы--green-65.png" />
+    <Resource Include="Resources\icons8-болид-формулы--yellow-65.png" />
     <Resource Include="Resources\icons8-болид-формулы--сверху-48.png" />
+    <Resource Include="Resources\icons8-болид-формулы--сверху-55.png" />
+    <Resource Include="Resources\icons8-болид-формулы--сверху-65.png" />
   </ItemGroup>
 
 </Project>
