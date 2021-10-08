@@ -23,23 +23,29 @@ namespace Homework_L2
     public partial class MainWindow : Window
     {
         Thread t1;
+        Thread fuel1;
         TranslateTransform transform1 = new TranslateTransform();
         RotateTransform rotateTransform1 = new RotateTransform(90);
         RotateTransform rotateTransform2 = new RotateTransform(180);
         RotateTransform rotateTransform3 = new RotateTransform(270);
         RotateTransform rotateTransform4 = new RotateTransform(0);
         Random rnd = new Random();
+
+        
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
-
+            //pbCar1.Value = 100;
         }
 
         private void Move(Button btn, Image img,  TranslateTransform transl, RotateTransform rotateTransform1 )
         {
-            while(true)
+           
+
+            while (true)
             {
+                
                 MoveByXtoRight(btn, transl, rotateTransform1);
                 //Dispatcher.Invoke(() =>
                 //{
@@ -54,6 +60,8 @@ namespace Homework_L2
                 MoveByYtoUp(btn, transl, rotateTransform1);
                 RotateImage(img, rotateTransform4);
             }
+
+            
      
             //RotateButton(btn, transl, rotateTransform1);
         }
@@ -194,14 +202,42 @@ namespace Homework_L2
 
         }
 
+        private void FuelConsumption()
+        {
+            //for(int i = 0; i<=100; i++)
+            //{
+            //    Thread.Sleep(200);
+            //    UpdateProgressBaar(i);
+            //}
+            int count = 100;
+
+            while (count >= 0)
+            {
+                count -= rnd.Next(1, 5);
+                Thread.Sleep(1000);
+                UpdateProgressBaar(count);
+            }
+        }
+        private void UpdateProgressBaar(int i)
+        {
+            Action action = () => { SetProgress(i); };
+            pbCar1.Dispatcher.BeginInvoke(action);
+        }
+        private void SetProgress(int i)
+        {
+            pbCar1.Value = i;
+        }
+
+
         void StartClick(object sender, RoutedEventArgs e)
         {
 
             t1 = new Thread(() => Move(btnRacer1, imgCar1 ,transform1, rotateTransform1));
-
+            fuel1 = new Thread(FuelConsumption);
             //t2.IsBackground = true;
 
             t1.Start();
+            fuel1.Start();
    
         }
     }

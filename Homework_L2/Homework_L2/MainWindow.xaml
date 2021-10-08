@@ -28,7 +28,10 @@
 
         </Grid.ColumnDefinitions>
         <Button x:Name="btnRacer1" Grid.Row="1" Grid.Column="1">
-            <Image x:Name="imgCar1" RenderTransformOrigin=".5,.5" Source="/Resources/icons8-болид-формулы--сверху-65.png" Margin="0,0,5,0" />
+            <StackPanel >
+                <ProgressBar x:Name="pbCar1" Value="100" Foreground="OrangeRed" ></ProgressBar>
+                <Image x:Name="imgCar1" RenderTransformOrigin=".5,.5" Source="/Resources/icons8-болид-формулы--сверху-65.png" Margin="0,0,5,0" />
+            </StackPanel>
         </Button>
         <Button x:Name="btnStart" Grid.Row="6" Click="StartClick">START</Button>
 
