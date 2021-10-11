@@ -233,6 +233,7 @@ namespace Homework_L2
                 if (count <= 20)
                 {
                     waitHandler.WaitOne();
+                    
                     StopTheCar = true;
                   
                     int key = rnd.Next(0, 1);
@@ -258,6 +259,9 @@ namespace Homework_L2
                 {
                     waitHandler.WaitOne();
                     StopTheCar = true;
+
+
+                    //TODO
                     //btnRacer1.Opacity = 0.5;
 
                 }
