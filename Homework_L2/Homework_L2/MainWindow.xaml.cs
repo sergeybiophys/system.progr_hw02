@@ -31,7 +31,11 @@ namespace Homework_L2
         RotateTransform rotateTransform4 = new RotateTransform(0);
         Random rnd = new Random();
 
-        
+        static bool StopTheCar = false;
+
+        static AutoResetEvent waitHandler = new AutoResetEvent(true);
+        static AutoResetEvent waitHandler2 = new AutoResetEvent(true);
+        static int x = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -45,20 +49,29 @@ namespace Homework_L2
 
             while (true)
             {
-                
-                MoveByXtoRight(btn, transl, rotateTransform1);
-                //Dispatcher.Invoke(() =>
-                //{
-                //    imgCar1.RenderTransform = rotateTransform1;
+                if(StopTheCar)
+                {
+                    waitHandler2.WaitOne();
+                }
+                else
+                {
+                    waitHandler2.Set();
+                    MoveByXtoRight(btn, transl, rotateTransform1);
+                    //Dispatcher.Invoke(() =>
+                    //{
+                    //    imgCar1.RenderTransform = rotateTransform1;
 
-                //});
-                RotateImage(img, rotateTransform1);
-                MoveByYtoDown(btn, transl, rotateTransform1);
-                RotateImage(img, rotateTransform2);
-                MoveByXtoLeft(btn, transl, rotateTransform1);
-                RotateImage(img, rotateTransform3);
-                MoveByYtoUp(btn, transl, rotateTransform1);
-                RotateImage(img, rotateTransform4);
+                    //});
+                    RotateImage(img, rotateTransform1);
+                    MoveByYtoDown(btn, transl, rotateTransform1);
+                    RotateImage(img, rotateTransform2);
+                    MoveByXtoLeft(btn, transl, rotateTransform1);
+                    RotateImage(img, rotateTransform3);
+                    MoveByYtoUp(btn, transl, rotateTransform1);
+                    RotateImage(img, rotateTransform4);
+                }
+                
+
             }
 
             
@@ -217,11 +230,40 @@ namespace Homework_L2
                 count -= rnd.Next(1, 5);
                 Thread.Sleep(1000);
                 UpdateProgressBaar(count);
-                //if(count<=20)
-                //{
-        
-                //}
+                if (count <= 20)
+                {
+                    waitHandler.WaitOne();
+                    StopTheCar = true;
+                  
+                    int key = rnd.Next(0, 1);
+                    switch(key)
+                    {
+                        case 0: 
+                            count = 100;
+                            waitHandler.Set();
+                            StopTheCar = false;
+                            break;
+                        case 1:
+                            waitHandler.Set();
+                            StopTheCar = false;
+                            break;
+                    }
+                }
+                else
+                {
+                    waitHandler.Set();
+                    StopTheCar = false;
+                }
+                if(count<=0)
+                {
+                    waitHandler.WaitOne();
+                    StopTheCar = true;
+                    //btnRacer1.Opacity = 0.5;
+
+                }
+
             }
+            
         }
         private void UpdateProgressBaar(int i)
         {
