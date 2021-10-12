@@ -83,7 +83,7 @@ namespace Homework_L2
         {
             int distance = 0;
     
-            while (distance <= 640)
+            while (distance <= 670)
             {
                 //distance += rnd.Next(10, 30);
                 distance += 10;
@@ -99,9 +99,9 @@ namespace Homework_L2
         }
         private void MoveByXtoLeft(Button btn, TranslateTransform transl, RotateTransform rotateTransform1)
         {
-            int distance = 640;
+            int distance = 670;
 
-            while (distance >=20)
+            while (distance >=10)
             {
                 //distance += rnd.Next(10, 30);
                 distance -= 10;
@@ -141,7 +141,7 @@ namespace Homework_L2
 
             int distance = 0;
 
-            while (distance <= 320)
+            while (distance <= 330)
             {
    
                 //distance += rnd.Next(10, 30);
@@ -156,9 +156,9 @@ namespace Homework_L2
         {
 
 
-            int distance = 320;
+            int distance = 330;
 
-            while (distance >= 20)
+            while (distance >= 10)
             {
 
                 //distance += rnd.Next(10, 30);
