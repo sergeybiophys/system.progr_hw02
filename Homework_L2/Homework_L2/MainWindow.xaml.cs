@@ -256,7 +256,7 @@ namespace Homework_L2
                     
                     StopTheCar = true;
                   
-                    int key = rnd.Next(0, 1);
+                    int key = rnd.Next(1, 1);
                     switch(key)
                     {
                         case 0: 
