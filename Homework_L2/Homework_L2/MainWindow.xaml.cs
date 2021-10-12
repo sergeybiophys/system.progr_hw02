@@ -39,6 +39,17 @@ namespace Homework_L2
 
         static int Place = 1;
         static int Lap = 0;
+
+        const int LIMIT_X_ONE = 740;
+        const int LIMIT_Y_ONE = 380;
+
+        const int LIMIT_X_TWO = 780;
+        const int LIMIT_Y_TWO = 380;
+
+        const int LIMIT_X_THREE = 820;
+        const int LIMIT_Y_THREE = 380;
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -92,7 +103,7 @@ namespace Homework_L2
         {
             int distance = 0;
     
-            while (distance <= 820)
+            while (distance <= LIMIT_X_ONE)
             {
                 //distance += rnd.Next(10, 30);
                 distance += 10;
@@ -108,7 +119,7 @@ namespace Homework_L2
         }
         private void MoveByXtoLeft(Button btn, TranslateTransform transl, RotateTransform rotateTransform1)
         {
-            int distance = 820;
+            int distance = LIMIT_X_ONE;
 
             while (distance >=10)
             {
@@ -150,7 +161,7 @@ namespace Homework_L2
 
             int distance = 0;
 
-            while (distance <= 450)
+            while (distance <= LIMIT_Y_ONE)
             {
    
                 //distance += rnd.Next(10, 30);
@@ -165,7 +176,7 @@ namespace Homework_L2
         {
 
 
-            int distance = 450;
+            int distance = LIMIT_Y_ONE;
 
             while (distance >= 10)
             {
