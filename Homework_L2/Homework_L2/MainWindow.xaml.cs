@@ -36,6 +36,9 @@ namespace Homework_L2
         static AutoResetEvent waitHandler = new AutoResetEvent(true);
         static AutoResetEvent waitHandler2 = new AutoResetEvent(true);
         static int x = 0;
+
+        static int Place = 1;
+        static int Lap = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -69,6 +72,12 @@ namespace Homework_L2
                     RotateImage(img, rotateTransform3);
                     MoveByYtoUp(btn, transl, rotateTransform1);
                     RotateImage(img, rotateTransform4);
+                    Lap++;
+                    if(Lap==3)
+                    {
+                        //this.Title = "WINNER!";
+                        waitHandler2.WaitOne();
+                    }
                 }
                 
 
@@ -83,7 +92,7 @@ namespace Homework_L2
         {
             int distance = 0;
     
-            while (distance <= 670)
+            while (distance <= 820)
             {
                 //distance += rnd.Next(10, 30);
                 distance += 10;
@@ -99,7 +108,7 @@ namespace Homework_L2
         }
         private void MoveByXtoLeft(Button btn, TranslateTransform transl, RotateTransform rotateTransform1)
         {
-            int distance = 670;
+            int distance = 820;
 
             while (distance >=10)
             {
@@ -141,7 +150,7 @@ namespace Homework_L2
 
             int distance = 0;
 
-            while (distance <= 330)
+            while (distance <= 450)
             {
    
                 //distance += rnd.Next(10, 30);
@@ -156,7 +165,7 @@ namespace Homework_L2
         {
 
 
-            int distance = 330;
+            int distance = 450;
 
             while (distance >= 10)
             {
