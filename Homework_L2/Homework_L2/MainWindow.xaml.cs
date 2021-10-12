@@ -33,8 +33,10 @@ namespace Homework_L2
 
         static bool StopTheCar = false;
 
+        static bool PitStop = false;
+
         static AutoResetEvent waitHandler = new AutoResetEvent(true);
-        static AutoResetEvent waitHandler2 = new AutoResetEvent(true);
+        //static AutoResetEvent waitHandler2 = new AutoResetEvent(true);
         static int x = 0;
 
         static int Place = 1;
@@ -63,13 +65,13 @@ namespace Homework_L2
 
             while (true)
             {
-                if(StopTheCar)
+                if(StopTheCar||PitStop)
                 {
-                    waitHandler2.WaitOne();
+                    waitHandler.WaitOne();
                 }
                 else
                 {
-                    waitHandler2.Set();
+                    //waitHandler.Set();
                     MoveByXtoRight(btn, transl, rotateTransform1);
                     //Dispatcher.Invoke(() =>
                     //{
@@ -84,31 +86,55 @@ namespace Homework_L2
                     MoveByYtoUp(btn, transl, rotateTransform1);
                     RotateImage(img, rotateTransform4);
                     Lap++;
-                    if(Lap==3)
+                    if (Lap == 1)
                     {
+                       
+
+                        StopTheCar = true;
                         //this.Title = "WINNER!";
-                        waitHandler2.WaitOne();
+                        waitHandler.WaitOne();
+                        UpdateTextBox(tbPlace3);
+                        Place++;
                     }
-                }
-                
-
+                }              
             }
-
-            
+          
      
             //RotateButton(btn, transl, rotateTransform1);
+        }
+
+
+        private void UpdateTextBox(TextBlock tb)
+        {
+
+            Action action = () => { UpdateText(tb); };
+            tb.Dispatcher.BeginInvoke(action);
+           
+        }
+
+        private void UpdateText(TextBlock tb)
+        {
+            tb.Text = $"{Place}+ Place";
         }
 
         private void MoveByXtoRight(Button btn, TranslateTransform transl, RotateTransform rotateTransform1)
         {
             int distance = 0;
-    
+     
             while (distance <= LIMIT_X_ONE)
             {
-                //distance += rnd.Next(10, 30);
-                distance += 10;
-                Thread.Sleep(100);
-                UpdatePositionButton(btn, transl, distance);
+                if (StopTheCar)
+                {
+                    waitHandler.WaitOne();
+                }
+                else
+                {
+                    //distance += rnd.Next(10, 30);
+                    distance += 10;
+                    Thread.Sleep(100);
+                    UpdatePositionButton(btn, transl, distance);
+                }
+
             }
             
             //if(distance==640)
@@ -123,10 +149,18 @@ namespace Homework_L2
 
             while (distance >=10)
             {
-                //distance += rnd.Next(10, 30);
-                distance -= 10;
-                Thread.Sleep(100);
-                UpdatePositionButton(btn, transl, distance);
+                if (StopTheCar)
+                {
+                    waitHandler.WaitOne();
+                }
+                else 
+                {
+                    //distance += rnd.Next(10, 30);
+                    distance -= 10;
+                    Thread.Sleep(100);
+                    UpdatePositionButton(btn, transl, distance);
+                }
+
             }
             //if(distance==640)
             //{
@@ -163,11 +197,18 @@ namespace Homework_L2
 
             while (distance <= LIMIT_Y_ONE)
             {
-   
-                //distance += rnd.Next(10, 30);
-                distance += 10;
-                Thread.Sleep(100);
-                UpdatePositionButtonY(btn, transl, distance);
+                if (StopTheCar)
+                {
+                    waitHandler.WaitOne();
+                }
+                else
+                {
+                    //distance += rnd.Next(10, 30);
+                    distance += 10;
+                    Thread.Sleep(100);
+                    UpdatePositionButtonY(btn, transl, distance);
+                }
+ 
             }
 
         }
@@ -180,11 +221,18 @@ namespace Homework_L2
 
             while (distance >= 10)
             {
+                if (StopTheCar)
+                {
+                    waitHandler.WaitOne();
+                }
+                else
+                {
+                    //distance += rnd.Next(10, 30);
+                    distance -= 10;
+                    Thread.Sleep(100);
+                    UpdatePositionButtonY(btn, transl, distance);
+                }
 
-                //distance += rnd.Next(10, 30);
-                distance -= 10;
-                Thread.Sleep(100);
-                UpdatePositionButtonY(btn, transl, distance);
             }
 
         }
@@ -254,28 +302,31 @@ namespace Homework_L2
                 {
                     waitHandler.WaitOne();
                     
-                    StopTheCar = true;
-                  
-                    int key = rnd.Next(1, 1);
-                    switch(key)
+                    PitStop = true;
+
+                    
+
+                    int key = rnd.Next(0, 1);
+                    switch (key)
                     {
-                        case 0: 
+                        case 0:
                             count = 100;
+                            Thread.Sleep(3000);
                             waitHandler.Set();
-                            StopTheCar = false;
+                            PitStop = false;
                             break;
                         case 1:
                             waitHandler.Set();
-                            StopTheCar = false;
+                            PitStop = false;
                             break;
                     }
                 }
                 else
                 {
                     waitHandler.Set();
-                    StopTheCar = false;
+                    PitStop = false;
                 }
-                if(count<=0)
+                if (count<=0)
                 {
                     waitHandler.WaitOne();
                     StopTheCar = true;
