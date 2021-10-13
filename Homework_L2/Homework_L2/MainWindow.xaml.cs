@@ -65,7 +65,7 @@ namespace Homework_L2
         static AutoResetEvent waitHandler1 = new AutoResetEvent(true);
         static AutoResetEvent waitHandler2 = new AutoResetEvent(true);
         static AutoResetEvent waitHandler3 = new AutoResetEvent(true);
-        //static AutoResetEvent waitHandler2 = new AutoResetEvent(true);
+
         static int x = 0;
 
         static int Place = 0;
@@ -83,7 +83,7 @@ namespace Homework_L2
         //const int LIMIT_X_THREE = 820;
         //const int LIMIT_Y_THREE = 380;
 
-
+        const int MAX_NUM_LAP = 3;
         public MainWindow()
         {
             InitializeComponent();
@@ -103,12 +103,7 @@ namespace Homework_L2
             {
                 if(StopTheCar||PitStop)
                 {
-                    //if(PitStop)
-                    //{
-                    //    Thread.Sleep(3000);
-                    //}
                     waitHandler.WaitOne();
-                   // UpdateTextBox(tb);
                 }
                 else
                 {
@@ -124,18 +119,13 @@ namespace Homework_L2
                     RotateImage(img, rotateTransform4);
                     Lap++;
 
-                    if (Lap == 1)
+                    if (Lap == MAX_NUM_LAP)
                     {
-
 
                         StopTheCar = true;
                         UpdateTextBox(tb);
-                        //this.Title = "WINNER!";
-                        //waitHandler.WaitOne();
-          
                         Place++;
                     }
-
                 }              
             }
         }
@@ -166,7 +156,7 @@ namespace Homework_L2
                 }
                 else
                 {
-                    //distance += rnd.Next(10, 30);
+
                     distance += 10;
                     Thread.Sleep(rnd.Next(100, 300));
                     UpdatePositionButton(btn, transl, distance);
@@ -174,11 +164,6 @@ namespace Homework_L2
 
             }
             
-            //if(distance==640)
-            //{
-            //RotateButton(btn, transl, rotateTransform1);
-            //}
-
         }
         private void MoveByXtoLeft(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler,ref bool StopTheCar, ref  bool PitStop)
         {
@@ -192,18 +177,12 @@ namespace Homework_L2
                 }
                 else 
                 {
-                    //distance += rnd.Next(10, 30);
                     distance -= 10;
                     Thread.Sleep(rnd.Next(100, 300));
                     UpdatePositionButton(btn, transl, distance);
                 }
 
             }
-            //if(distance==640)
-            //{
-            //RotateButton(btn, transl, rotateTransform1);
-            //}
-
         }
         private void UpdatePositionButton(Button btn,  TranslateTransform transl, int distance)
         {
@@ -212,18 +191,10 @@ namespace Homework_L2
         }
         private void SetDistance(Button btn,  TranslateTransform transl, int dist)
         {
-            //transform1.X += rnd.Next(5, 10);
 
             transl.X = dist;
             btn.RenderTransform = transl;
-            //if (dist == 600)
-            //{
-             
-            //    //tb.Text = Places.ToString();
-            //    //Places++;
 
-
-            //}
         }
 
         private void MoveByYtoDown(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler,ref bool StopTheCar, ref bool PitStop)
@@ -285,14 +256,7 @@ namespace Homework_L2
 
             transl.Y = dist;
             btn.RenderTransform = transl;
-            //if (dist == 600)
-            //{
 
-            //    //tb.Text = Places.ToString();
-            //    //Places++;
-
-
-            //}
         }
 
         private void RotateImage(Image img, RotateTransform transf)
@@ -327,18 +291,16 @@ namespace Homework_L2
 
                 if (count <= 20 && count >=15)
                 {
-                    //waitHandler.WaitOne();
+
                     
                     PitStop = true;
 
-                    //Thread.Sleep(3000);
 
                     int key = rnd.Next(0, 2);
                     switch (key)
                     {
                         case 0:
-                            
-                            // PitStop = true;
+                           
                             Thread.Sleep(1500);
                             PitStop = false;
                             count = 100;
@@ -346,7 +308,7 @@ namespace Homework_L2
                            
                             break;
                         case 1:
-                            //waitHandler.Set();
+
                             waitHandler.Set();
                             PitStop = false;
                             break;
@@ -354,12 +316,12 @@ namespace Homework_L2
                 }
                 else
                 {
-                    //waitHandler.Set();
+
                     PitStop = false;
                 }
                 if (count<=0)
                 {
-                   // waitHandler.WaitOne();
+
                     StopTheCar = true;
 
 
