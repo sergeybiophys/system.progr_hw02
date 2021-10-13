@@ -76,6 +76,7 @@ namespace Homework_L2
 
         const int LIMIT_X_ONE = 740;
         const int LIMIT_Y_ONE = 380;
+        const int PITSTOP_TIME = 2000;
 
         //const int LIMIT_X_TWO = 780;
         //const int LIMIT_Y_TWO = 380;
@@ -83,7 +84,7 @@ namespace Homework_L2
         //const int LIMIT_X_THREE = 820;
         //const int LIMIT_Y_THREE = 380;
 
-        const int MAX_NUM_LAP = 3;
+        const int MAX_NUM_LAP = 2;
         public MainWindow()
         {
             InitializeComponent();
@@ -211,14 +212,11 @@ namespace Homework_L2
                 }
                 else
                 {
-                    //distance += rnd.Next(10, 30);
                     distance += 10;
                     Thread.Sleep(rnd.Next(100, 300));
                     UpdatePositionButtonY(btn, transl, distance);
                 }
- 
             }
-
         }
 
         private void MoveByYtoUp(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler,ref bool StopTheCar,ref bool PitStop)
@@ -237,7 +235,7 @@ namespace Homework_L2
                 {
                     //distance += rnd.Next(10, 30);
                     distance -= 10;
-                    Thread.Sleep(rnd.Next(100,300));
+                    Thread.Sleep(rnd.Next(100,500));
                     UpdatePositionButtonY(btn, transl, distance);
                 }
 
@@ -284,7 +282,7 @@ namespace Homework_L2
             while (count >= 0)
             {
                
-                count -= rnd.Next(1, 5);
+                count -= rnd.Next(1, 4);
                 Thread.Sleep(1000);
 
                 UpdateProgressBaar(pb, count);
@@ -301,7 +299,7 @@ namespace Homework_L2
                     {
                         case 0:
                            
-                            Thread.Sleep(1500);
+                            Thread.Sleep(PITSTOP_TIME);
                             PitStop = false;
                             count = 100;
                             waitHandler.Set();
