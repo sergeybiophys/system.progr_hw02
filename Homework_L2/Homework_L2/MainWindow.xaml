@@ -48,6 +48,9 @@
         <TextBlock Grid.Column="6" Grid.Row="1"  Grid.RowSpan="7" Background="Gray"></TextBlock>
         <TextBlock Grid.Column="7" Grid.Row="1"  Grid.RowSpan="7" Background="Gray"></TextBlock>
 
+        <TextBlock Grid.Row="1" Grid.Column="2" Width="40" HorizontalAlignment="Left" VerticalAlignment="Center" x:Name="tbPos1" FontSize="15" Background="Gray"></TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="3" Width="40" HorizontalAlignment="Left" VerticalAlignment="Center" x:Name="tbPos2" FontSize="15" Background="Gray"></TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="4" Width="40" HorizontalAlignment="Left" VerticalAlignment="Center" x:Name="tbPos3" FontSize="15" Background="Gray"></TextBlock>
 
         <Line Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="5" StrokeThickness="5"  
               X1="0" Y1="0" X2="850" Y2="0" 
@@ -96,12 +99,26 @@
         <Line Grid.Row="3" Grid.Column="4" StrokeThickness="10" 
               X1="0" Y1="0" X2="0" Y2="500"
                Stroke="White"></Line>
-        <TextBlock Grid.Row="3" Grid.Column="4" Width="40" HorizontalAlignment="Left" x:Name="tbPlace3" FontSize="15" Background="Gray"></TextBlock>
         
-        <Button x:Name="btnRacer1" Grid.Row="3" Grid.Column="3">
+        
+        <Button x:Name="btnRacer1" Grid.Row="1" Grid.Column="1">
             <StackPanel >
                 <ProgressBar x:Name="pbCar1" Value="100" Foreground="DarkGreen" ></ProgressBar>
-                <Image x:Name="imgCar1" RenderTransformOrigin=".5,.5" Source="/Resources/icons8-болид-формулы--сверху-65.png" Margin="0,0,5,0" />
+                <Image x:Name="imgCar1" RenderTransformOrigin=".5,.5" Source="/Resources/icons8-болид-формулы--yellow-65.png" Margin="0,0,5,0" />
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="btnRacer2" Grid.Row="2" Grid.Column="2">
+            <StackPanel >
+                <ProgressBar x:Name="pbCar2" Value="100" Foreground="DarkGreen" ></ProgressBar>
+                <Image x:Name="imgCar2" RenderTransformOrigin=".5,.5" Source="/Resources/icons8-болид-формулы--green-65.png" Margin="0,0,5,0" />
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="btnRacer3" Grid.Row="3" Grid.Column="3">
+            <StackPanel >
+                <ProgressBar x:Name="pbCar3" Value="100" Foreground="DarkGreen" ></ProgressBar>
+                <Image x:Name="imgCar3" RenderTransformOrigin=".5,.5" Source="/Resources/icons8-болид-формулы--сверху-65.png" Margin="0,0,5,0" />
             </StackPanel>
         </Button>
 
