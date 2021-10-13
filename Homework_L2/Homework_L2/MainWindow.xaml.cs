@@ -94,7 +94,7 @@ namespace Homework_L2
         private void Move(Button btn, Image img,  TranslateTransform transl, RotateTransform rotateTransform1,
                                                   RotateTransform rotateTransform2, RotateTransform rotateTransform3, 
                                                   RotateTransform rotateTransform4, TextBlock tb, AutoResetEvent waitHandler,
-                                                  ref bool StopTheCar, ref bool PitStop, int Lap
+                                                   ref bool StopTheCar, ref bool PitStop, int Lap
                                                   )
         {
            
@@ -103,23 +103,23 @@ namespace Homework_L2
             {
                 if(StopTheCar||PitStop)
                 {
-                    if(PitStop)
-                    {
-                        Thread.Sleep(3000);
-                    }
+                    //if(PitStop)
+                    //{
+                    //    Thread.Sleep(3000);
+                    //}
                     waitHandler.WaitOne();
                 }
                 else
                 {
  
-                    MoveByXtoRight(btn, transl, rotateTransform1, waitHandler,ref StopTheCar);
+                    MoveByXtoRight(btn, transl, rotateTransform1, waitHandler,ref StopTheCar,ref PitStop);
  
                     RotateImage(img, rotateTransform1);
-                    MoveByYtoDown(btn, transl, rotateTransform1, waitHandler,ref StopTheCar);
+                    MoveByYtoDown(btn, transl, rotateTransform1, waitHandler,ref StopTheCar,ref PitStop);
                     RotateImage(img, rotateTransform2);
-                    MoveByXtoLeft(btn, transl, rotateTransform1, waitHandler,ref StopTheCar);
+                    MoveByXtoLeft(btn, transl, rotateTransform1, waitHandler,ref StopTheCar,ref PitStop);
                     RotateImage(img, rotateTransform3);
-                    MoveByYtoUp(btn, transl, rotateTransform1, waitHandler,ref StopTheCar);
+                    MoveByYtoUp(btn, transl, rotateTransform1, waitHandler,ref StopTheCar,ref PitStop);
                     RotateImage(img, rotateTransform4);
                     Lap++;
                     if (Lap == 1)
@@ -150,13 +150,13 @@ namespace Homework_L2
             tb.Text = $" [-{Place}-]";
         }
 
-        private void MoveByXtoRight(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler, ref bool StopTheCar)
+        private void MoveByXtoRight(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler,ref  bool StopTheCar,ref bool PitStop)
         {
             int distance = 0;
      
             while (distance <= LIMIT_X_ONE)
             {
-                if (StopTheCar)
+                if (StopTheCar || PitStop)
                 {
                     waitHandler.WaitOne();
                 }
@@ -176,13 +176,13 @@ namespace Homework_L2
             //}
 
         }
-        private void MoveByXtoLeft(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler,ref bool StopTheCar)
+        private void MoveByXtoLeft(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler,ref bool StopTheCar, ref  bool PitStop)
         {
             int distance = LIMIT_X_ONE;
 
             while (distance >=10)
             {
-                if (StopTheCar)
+                if (StopTheCar || PitStop)
                 {
                     waitHandler.WaitOne();
                 }
@@ -222,7 +222,7 @@ namespace Homework_L2
             //}
         }
 
-        private void MoveByYtoDown(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler,ref bool StopTheCar)
+        private void MoveByYtoDown(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler,ref bool StopTheCar, ref bool PitStop)
         {
  
 
@@ -230,7 +230,7 @@ namespace Homework_L2
 
             while (distance <= LIMIT_Y_ONE)
             {
-                if (StopTheCar)
+                if (StopTheCar || PitStop)
                 {
                     waitHandler.WaitOne();
                 }
@@ -246,7 +246,7 @@ namespace Homework_L2
 
         }
 
-        private void MoveByYtoUp(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler,ref bool StopTheCar)
+        private void MoveByYtoUp(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler,ref bool StopTheCar,ref bool PitStop)
         {
 
 
@@ -254,7 +254,7 @@ namespace Homework_L2
 
             while (distance >= 10)
             {
-                if (StopTheCar)
+                if (StopTheCar || PitStop)
                 {
                     waitHandler.WaitOne();
                 }
@@ -308,7 +308,7 @@ namespace Homework_L2
             img.RenderTransform = transf;
         }
 
-        private void FuelConsumption(AutoResetEvent waitHandler, ProgressBar pb, ref bool StopTheCar,ref bool PitStop)
+        private void FuelConsumption(AutoResetEvent waitHandler, ProgressBar pb, ref bool StopTheCar, ref bool PitStop)
         {
 
             int count = 100;
@@ -318,40 +318,44 @@ namespace Homework_L2
                
                 count -= rnd.Next(1, 5);
                 Thread.Sleep(1000);
+
                 UpdateProgressBaar(pb, count);
-                if (count <= 80)
+
+                if (count <= 50)
                 {
-                   // waitHandler.WaitOne();
+                    //waitHandler.WaitOne();
                     
                     PitStop = true;
 
-                   //Thread.Sleep(3000);
+                    //Thread.Sleep(3000);
 
-                    //int key = rnd.Next(0, 1);
-                    //switch (key)
-                    //{
-                    //    case 0:
-
-                    //       // PitStop = true;
-                    //        Thread.Sleep(3000);
-                    //        count = 100;
-                    //        waitHandler.Set();
-                    //        PitStop = false;
-                    //        break;
-                    //    case 1:
-                    //        waitHandler.Set();
-                    //        PitStop = false;
-                    //        break;
-                    //}
+                    int key = rnd.Next(1, 1);
+                    switch (key)
+                    {
+                        case 0:
+                            
+                            // PitStop = true;
+                            Thread.Sleep(1500);
+                            PitStop = false;
+                            count = 100;
+                            waitHandler.Set();
+                           
+                            break;
+                        case 1:
+                            //waitHandler.Set();
+                            waitHandler.Set();
+                            PitStop = false;
+                            break;
+                    }
                 }
-                //else
-                //{
-                //    waitHandler.Set();
-                //    PitStop = false;
-                //}
+                else
+                {
+                    //waitHandler.Set();
+                    PitStop = false;
+                }
                 if (count<=0)
                 {
-                    waitHandler.WaitOne();
+                   // waitHandler.WaitOne();
                     StopTheCar = true;
 
 
@@ -392,9 +396,11 @@ namespace Homework_L2
 
             ClearFields();
 
+            fuel1 = new Thread(() => FuelConsumption(waitHandler1, pbCar1, ref StopTheCar1,ref  PitStop1));
+
             t1 = new Thread(() => Move(btnRacer1, imgCar1 ,transform1, rotateTransform1, rotateTransform2, rotateTransform3, 
                                                                 rotateTransform4, tbPos1,  waitHandler1,ref StopTheCar1,ref PitStop1, Lap1));
-            fuel1 = new Thread(() => FuelConsumption(waitHandler1, pbCar1,ref StopTheCar1,ref PitStop1));
+
 
             //t2 = new Thread(() => Move(btnRacer2, imgCar2, transform2, rotateTransform21, rotateTransform22, rotateTransform23,
             //                                                    rotateTransform24, tbPos2, waitHandler2, StopTheCar2, PitStop2, Lap2));
@@ -406,9 +412,9 @@ namespace Homework_L2
 
 
             //t2.IsBackground = true;
-
-            t1.Start();
             fuel1.Start();
+            t1.Start();
+            
 
             //t2.Start();
             //fuel2.Start();
