@@ -50,9 +50,9 @@ namespace Homework_L2
 
         Random rnd = new Random();
 
-        static bool StopTheCar = false;
+        static bool StopTheCar1 = false;
 
-        static bool PitStop = false;
+        static bool PitStop1 = false;
 
         static bool StopTheCar2 = false;
 
@@ -70,7 +70,7 @@ namespace Homework_L2
 
         static int Place = 0;
 
-        static int Lap = 0;
+        static int Lap1 = 0;
         static int Lap2 = 0;
         static int Lap3 = 0;
 
@@ -94,7 +94,7 @@ namespace Homework_L2
         private void Move(Button btn, Image img,  TranslateTransform transl, RotateTransform rotateTransform1,
                                                   RotateTransform rotateTransform2, RotateTransform rotateTransform3, 
                                                   RotateTransform rotateTransform4, TextBlock tb, AutoResetEvent waitHandler,
-                                                  bool StopTheCar, bool PitStop, int Lap
+                                                  ref bool StopTheCar, ref bool PitStop, int Lap
                                                   )
         {
            
@@ -103,19 +103,23 @@ namespace Homework_L2
             {
                 if(StopTheCar||PitStop)
                 {
+                    if(PitStop)
+                    {
+                        Thread.Sleep(3000);
+                    }
                     waitHandler.WaitOne();
                 }
                 else
                 {
  
-                    MoveByXtoRight(btn, transl, rotateTransform1, waitHandler);
+                    MoveByXtoRight(btn, transl, rotateTransform1, waitHandler,ref StopTheCar);
  
                     RotateImage(img, rotateTransform1);
-                    MoveByYtoDown(btn, transl, rotateTransform1, waitHandler);
+                    MoveByYtoDown(btn, transl, rotateTransform1, waitHandler,ref StopTheCar);
                     RotateImage(img, rotateTransform2);
-                    MoveByXtoLeft(btn, transl, rotateTransform1, waitHandler);
+                    MoveByXtoLeft(btn, transl, rotateTransform1, waitHandler,ref StopTheCar);
                     RotateImage(img, rotateTransform3);
-                    MoveByYtoUp(btn, transl, rotateTransform1, waitHandler);
+                    MoveByYtoUp(btn, transl, rotateTransform1, waitHandler,ref StopTheCar);
                     RotateImage(img, rotateTransform4);
                     Lap++;
                     if (Lap == 1)
@@ -130,9 +134,6 @@ namespace Homework_L2
                     }
                 }              
             }
-          
-     
-            //RotateButton(btn, transl, rotateTransform1);
         }
 
 
@@ -149,7 +150,7 @@ namespace Homework_L2
             tb.Text = $" [-{Place}-]";
         }
 
-        private void MoveByXtoRight(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler)
+        private void MoveByXtoRight(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler, ref bool StopTheCar)
         {
             int distance = 0;
      
@@ -175,7 +176,7 @@ namespace Homework_L2
             //}
 
         }
-        private void MoveByXtoLeft(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler)
+        private void MoveByXtoLeft(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler,ref bool StopTheCar)
         {
             int distance = LIMIT_X_ONE;
 
@@ -221,7 +222,7 @@ namespace Homework_L2
             //}
         }
 
-        private void MoveByYtoDown(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler)
+        private void MoveByYtoDown(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler,ref bool StopTheCar)
         {
  
 
@@ -245,7 +246,7 @@ namespace Homework_L2
 
         }
 
-        private void MoveByYtoUp(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler)
+        private void MoveByYtoUp(Button btn, TranslateTransform transl, RotateTransform rotateTransform1, AutoResetEvent waitHandler,ref bool StopTheCar)
         {
 
 
@@ -304,24 +305,12 @@ namespace Homework_L2
         }
         private void RotateCW(Image img, RotateTransform transf)
         {
-            //transl.X = 650;
-            //var buttonLocation = btn.PointToScreen().
-            //transf.Angle = 90;
-            //transf.CenterX = transl.Y;
-            //transf.CenterY = transl.X;
             img.RenderTransform = transf;
-            //btn.RenderTransform = transl;
-          
-
         }
 
-        private void FuelConsumption(AutoResetEvent waitHandler, ProgressBar pb,  bool StopTheCar, bool PitStop)
+        private void FuelConsumption(AutoResetEvent waitHandler, ProgressBar pb, ref bool StopTheCar,ref bool PitStop)
         {
-            //for(int i = 0; i<=100; i++)
-            //{
-            //    Thread.Sleep(200);
-            //    UpdateProgressBaar(i);
-            //}
+
             int count = 100;
 
             while (count >= 0)
@@ -330,34 +319,36 @@ namespace Homework_L2
                 count -= rnd.Next(1, 5);
                 Thread.Sleep(1000);
                 UpdateProgressBaar(pb, count);
-                if (count <= 20)
+                if (count <= 80)
                 {
-                    waitHandler.WaitOne();
+                   // waitHandler.WaitOne();
                     
                     PitStop = true;
 
-                    
+                   //Thread.Sleep(3000);
 
-                    int key = rnd.Next(0, 1);
-                    switch (key)
-                    {
-                        case 0:
-                            count = 100;
-                            Thread.Sleep(3000);
-                            waitHandler.Set();
-                            PitStop = false;
-                            break;
-                        case 1:
-                            waitHandler.Set();
-                            PitStop = false;
-                            break;
-                    }
+                    //int key = rnd.Next(0, 1);
+                    //switch (key)
+                    //{
+                    //    case 0:
+
+                    //       // PitStop = true;
+                    //        Thread.Sleep(3000);
+                    //        count = 100;
+                    //        waitHandler.Set();
+                    //        PitStop = false;
+                    //        break;
+                    //    case 1:
+                    //        waitHandler.Set();
+                    //        PitStop = false;
+                    //        break;
+                    //}
                 }
-                else
-                {
-                    waitHandler.Set();
-                    PitStop = false;
-                }
+                //else
+                //{
+                //    waitHandler.Set();
+                //    PitStop = false;
+                //}
                 if (count<=0)
                 {
                     waitHandler.WaitOne();
@@ -365,7 +356,7 @@ namespace Homework_L2
 
 
                     //TODO
-                    //btnRacer1.Opacity = 0.5;
+                    //btnRacer.Opacity = 0.5;
 
                 }
 
@@ -382,21 +373,36 @@ namespace Homework_L2
             pb.Value = i;
         }
 
+        void ClearFields()
+        {
+            Place = 0;
+
+            Lap1 = 0;
+            Lap2 = 0;
+            Lap3 = 0;
+
+            tbPos1.Text = "";
+            tbPos2.Text = "";
+            tbPos3.Text = "";
+
+        }
 
         void StartClick(object sender, RoutedEventArgs e)
         {
 
+            ClearFields();
+
             t1 = new Thread(() => Move(btnRacer1, imgCar1 ,transform1, rotateTransform1, rotateTransform2, rotateTransform3, 
-                                                                rotateTransform4, tbPos1,  waitHandler1, StopTheCar, PitStop, Lap));
-            fuel1 = new Thread(()=>FuelConsumption(waitHandler1, pbCar1, StopTheCar, PitStop));
+                                                                rotateTransform4, tbPos1,  waitHandler1,ref StopTheCar1,ref PitStop1, Lap1));
+            fuel1 = new Thread(() => FuelConsumption(waitHandler1, pbCar1,ref StopTheCar1,ref PitStop1));
 
-            t2 = new Thread(() => Move(btnRacer2, imgCar2, transform2, rotateTransform21, rotateTransform22, rotateTransform23,
-                                                                rotateTransform24, tbPos2, waitHandler2, StopTheCar2, PitStop2, Lap2));
-            fuel2 = new Thread(()=>FuelConsumption(waitHandler2, pbCar2, StopTheCar2, PitStop2));
+            //t2 = new Thread(() => Move(btnRacer2, imgCar2, transform2, rotateTransform21, rotateTransform22, rotateTransform23,
+            //                                                    rotateTransform24, tbPos2, waitHandler2, StopTheCar2, PitStop2, Lap2));
+            //fuel2 = new Thread(()=>FuelConsumption(waitHandler2, pbCar2, StopTheCar2, PitStop2));
 
-            t3 = new Thread(() => Move(btnRacer3, imgCar3, transform3, rotateTransform31, rotateTransform32, rotateTransform33,
-                                                                rotateTransform34, tbPos3, waitHandler3, StopTheCar3, PitStop3, Lap3));
-            fuel3 = new Thread(()=>FuelConsumption(waitHandler3, pbCar3, StopTheCar3, PitStop3));
+            //t3 = new Thread(() => Move(btnRacer3, imgCar3, transform3, rotateTransform31, rotateTransform32, rotateTransform33,
+            //                                                    rotateTransform34, tbPos3, waitHandler3, StopTheCar3, PitStop3, Lap3));
+            //fuel3 = new Thread(()=>FuelConsumption(waitHandler3, pbCar3, StopTheCar3, PitStop3));
 
 
             //t2.IsBackground = true;
@@ -404,11 +410,11 @@ namespace Homework_L2
             t1.Start();
             fuel1.Start();
 
-            t2.Start();
-            fuel2.Start();
+            //t2.Start();
+            //fuel2.Start();
 
-            t3.Start();
-            fuel3.Start();
+            //t3.Start();
+            //fuel3.Start();
 
         }
     }
